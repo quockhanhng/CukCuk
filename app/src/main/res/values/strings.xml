@@ -65,12 +65,15 @@
     <string name="title_edit_group">Sửa nhóm thực đơn</string>
     <string name="menu_group_name">Tên nhóm (*)</string>
     <string name="error_menu_group_empty">Tên nhóm thực đơn không được để trống</string>
-    <string name="title_report">Doanh thu tổng quan</string>
+    <string name="title_report">Báo cáo</string>
+    <string name="title_report_overall">Doanh thu tổng quan</string>
+    <string name="title_report_details">Doanh thu theo mặt hàng</string>
     <string name="string_report_no_data">Không có dữ liệu</string>
     <string name="report_total_money">Tổng số tiền thu được</string>
     <string name="report_cash">Tiền mặt</string>
     <string name="report_other">Thanh toán khác</string>
     <string name="vnd_unit">đ</string>
+    <string name="string_income_by_day">DOANH THU THEO NGÀY</string>
 
     <string-array name="unit_spinner">
         <item>"Suất"</item>
@@ -99,5 +102,14 @@
         <item>"kem"</item>
         <item>"do_uong_coc"</item>
         <item>"do_dong_chai"</item>
+    </string-array>
+
+    <string-array name="report_by">
+        <item>"Hôm nay"</item>
+        <item>"Hôm qua"</item>
+        <item>"Tuần này"</item>
+        <item>"Tuần trước"</item>
+        <item>"Tháng này"</item>
+        <item>"Khác"</item>
     </string-array>
 </resources>

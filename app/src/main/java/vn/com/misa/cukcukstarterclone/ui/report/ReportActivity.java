@@ -1,45 +1,53 @@
 package vn.com.misa.cukcukstarterclone.ui.report;
 
+import android.os.Bundle;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentTransaction;
+
 import vn.com.misa.cukcukstarterclone.R;
-import vn.com.misa.cukcukstarterclone.base.BaseActivity;
+import vn.com.misa.cukcukstarterclone.ui.report.overall.ReportOverallFragment;
 import vn.com.misa.cukcukstarterclone.utils.Utils;
 
-public class ReportActivity extends BaseActivity<ReportContract.View, ReportPresenter>
-        implements ReportContract.View {
-
-    private TextView tvNoData;
-
-    private ReportPresenter mPresenter;
+public class ReportActivity extends AppCompatActivity {
 
     @Override
-    protected int getLayout() {
-        return R.layout.activity_report;
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.activity_report);
+
+        initViews();
     }
 
-    @Override
-    protected void bindViews() {
-        try {
+    private void initViews() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_back);
+        toolbar.setNavigationOnClickListener(v -> {
+            finish();
+        });
 
-            tvNoData = findViewById(R.id.tvNoData);
+        TextView tvReportOverall = findViewById(R.id.tvReportOverall);
+        TextView tvReportDetails = findViewById(R.id.tvReportDetails);
+
+        tvReportOverall.setOnClickListener(v -> showReportOverall());
+        tvReportDetails.setOnClickListener(v -> showReportDetails());
+    }
+
+    private void showReportOverall() {
+        try {
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.add(R.id.root, new ReportOverallFragment(), ReportOverallFragment.TAG).addToBackStack(ReportOverallFragment.TAG);
+            fragmentTransaction.commit();
         } catch (Exception e) {
             Utils.handleException(e);
         }
-
-        initPresenter();
     }
 
-    private void initPresenter() {
-        try {
-            mPresenter.attach(this);
-        } catch (Exception e) {
-            Utils.handleException(e);
-        }
-    }
+    private void showReportDetails() {
 
-    @Override
-    protected void initData() {
-        mPresenter.detach();
     }
 }

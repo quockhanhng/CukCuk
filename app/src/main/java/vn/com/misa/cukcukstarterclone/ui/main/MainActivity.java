@@ -33,6 +33,7 @@ import vn.com.misa.cukcukstarterclone.ui.main.checkout.CheckoutFragment;
 import vn.com.misa.cukcukstarterclone.ui.main.listorders.ListOrdersFragment;
 import vn.com.misa.cukcukstarterclone.ui.menu.MenuActivity;
 import vn.com.misa.cukcukstarterclone.ui.order.OrderActivity;
+import vn.com.misa.cukcukstarterclone.ui.report.ReportActivity;
 import vn.com.misa.cukcukstarterclone.utils.Utils;
 
 public class MainActivity extends AppCompatActivity
@@ -81,6 +82,8 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent(this, OrderActivity.class));
         } else if ("Danh sách thực đơn".equals(title)) {
             startActivity(new Intent(this, MenuActivity.class));
+        } else if ("Báo cáo".equals(title)) {
+            startActivity(new Intent(this, ReportActivity.class));
         }
     }
 

@@ -115,4 +115,14 @@
         <item name="android:textSize">20sp</item>
         <item name="android:layout_marginEnd">4dp</item>
     </style>
+
+    <style name="TextViewReportTitle" parent="Widget.MaterialComponents.TextView">
+        <item name="android:drawablePadding">8dp</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:selectable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+    </style>
 </resources>

@@ -4,6 +4,10 @@ import android.util.Log;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * - Mục đích Class: Utility class, chứa các phương thức được sử dụng chung trong cả ứng dụng
@@ -22,5 +26,13 @@ public class Utils {
             return String.valueOf((int) value/1000);
         }
         return String.valueOf(bd.doubleValue());
+    }
+
+    public static String formatMoney(float value) {
+        return new DecimalFormat("###,###,###").format(value);
+    }
+
+    public static String dateFormat(String format, Date date) {
+        return new SimpleDateFormat(format, Locale.getDefault()).format(date);
     }
 }

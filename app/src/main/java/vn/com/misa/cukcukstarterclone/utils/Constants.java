@@ -8,4 +8,8 @@ package vn.com.misa.cukcukstarterclone.utils;
 public class Constants {
     public static final long DELAY_TIME = 1000;
     public static final String DATE_FORMAT = "yyyy-MM-dd hh:mm:ss";
+    public static final String DATE_DAY_FORMAT = "yyyy-MM-dd";
+    public static final String FULL_DATE_FORMAT = "EEEE - dd/MM/yyyy";
+    public static final String SIMPLE_DATE_FORMAT = "dd/MM/yyyy";
+    public static final String DAY_IN_WEEK_FORMAT = "dd/MM";
 }

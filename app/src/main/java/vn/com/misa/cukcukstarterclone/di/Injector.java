@@ -2,30 +2,34 @@ package vn.com.misa.cukcukstarterclone.di;
 
 import android.content.Context;
 
-import vn.com.misa.cukcukstarterclone.data.model.Order;
 import vn.com.misa.cukcukstarterclone.data.repository.CartItemRepository;
 import vn.com.misa.cukcukstarterclone.data.repository.CartRepository;
 import vn.com.misa.cukcukstarterclone.data.repository.MenuGroupRepository;
 import vn.com.misa.cukcukstarterclone.data.repository.MenuItemRepository;
 import vn.com.misa.cukcukstarterclone.data.repository.OrderRepository;
+import vn.com.misa.cukcukstarterclone.data.repository.ReportRepository;
 import vn.com.misa.cukcukstarterclone.data.source.ICartDataSource;
 import vn.com.misa.cukcukstarterclone.data.source.ICartItemDataSource;
 import vn.com.misa.cukcukstarterclone.data.source.IMenuItemDataSource;
 import vn.com.misa.cukcukstarterclone.data.source.IOrderDataSource;
+import vn.com.misa.cukcukstarterclone.data.source.IReportDataSource;
 import vn.com.misa.cukcukstarterclone.data.source.local.CartItemLocalDataSource;
 import vn.com.misa.cukcukstarterclone.data.source.local.CartLocalDataSource;
 import vn.com.misa.cukcukstarterclone.data.source.local.MenuGroupLocalDataSource;
 import vn.com.misa.cukcukstarterclone.data.source.local.MenuItemLocalDataSource;
 import vn.com.misa.cukcukstarterclone.data.source.local.OrderLocalDataSource;
+import vn.com.misa.cukcukstarterclone.data.source.local.ReportLocalDataSource;
 import vn.com.misa.cukcukstarterclone.data.source.local.dao.CartDao;
 import vn.com.misa.cukcukstarterclone.data.source.local.dao.CartItemDao;
 import vn.com.misa.cukcukstarterclone.data.source.local.dao.ICartDao;
 import vn.com.misa.cukcukstarterclone.data.source.local.dao.ICartItemDao;
 import vn.com.misa.cukcukstarterclone.data.source.local.dao.IMenuItemDao;
 import vn.com.misa.cukcukstarterclone.data.source.local.dao.IOrderDao;
+import vn.com.misa.cukcukstarterclone.data.source.local.dao.IReportDao;
 import vn.com.misa.cukcukstarterclone.data.source.local.dao.MenuGroupDao;
 import vn.com.misa.cukcukstarterclone.data.source.local.dao.MenuItemDao;
 import vn.com.misa.cukcukstarterclone.data.source.local.dao.OrderDao;
+import vn.com.misa.cukcukstarterclone.data.source.local.dao.ReportDao;
 import vn.com.misa.cukcukstarterclone.data.source.local.database.AppDatabase;
 import vn.com.misa.cukcukstarterclone.data.source.remote.MenuGroupRemoteDataSource;
 import vn.com.misa.cukcukstarterclone.data.source.remote.MenuItemRemoteDataSource;
@@ -111,5 +115,20 @@ public final class Injector {
         IOrderDao orderDao = OrderDao.getInstance(database);
         IOrderDataSource.Local orderLocalDataSource = OrderLocalDataSource.getInstance(orderDao);
         return OrderRepository.getInstance(orderLocalDataSource);
+    }
+
+    /**
+     * - Mục đích method: Lấy ra instance của ReportRepository
+     * - Sử dụng khi: cần sử dụng các phương thức của ReportRepository
+     *
+     * @param context Context để khởi tạo Database
+     * @return {@link ReportRepository}
+     * @created_by KhanhNQ on 01-Feb-21
+     */
+    public static ReportRepository getReportRepository(Context context) {
+        AppDatabase database = AppDatabase.getInstance(context);
+        IReportDao reportDao = ReportDao.getInstance(database);
+        IReportDataSource.Local reportLocalDataSource = ReportLocalDataSource.getInstance(reportDao);
+        return ReportRepository.getInstance(reportLocalDataSource);
     }
 }
