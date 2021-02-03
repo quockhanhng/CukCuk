@@ -38,8 +38,8 @@ import static vn.com.misa.cukcukstarterclone.utils.Constants.DAY_IN_WEEK_FORMAT;
 /**
  * @created_by KhanhNQ on 31-Jan-21
  */
-public class ReportOverallFragment extends BaseFragment<ReportContract.View, ReportPresenter>
-        implements ReportContract.View {
+public class ReportOverallFragment extends BaseFragment<ReportOverallContract.View, ReportOverallPresenter>
+        implements ReportOverallContract.View {
 
     public static String TAG = "ReportOverallFragment";
 
@@ -52,7 +52,7 @@ public class ReportOverallFragment extends BaseFragment<ReportContract.View, Rep
     private LinearLayout llIncomeByDay;
     private LineChart chartIncomeByDay;
 
-    private ReportPresenter mPresenter;
+    private ReportOverallPresenter mPresenter;
 
     public ReportOverallFragment() {
     }
@@ -117,7 +117,7 @@ public class ReportOverallFragment extends BaseFragment<ReportContract.View, Rep
         try {
             ReportRepository reportRepository = Injector.getReportRepository(requireContext());
 
-            mPresenter = new ReportPresenter(reportRepository);
+            mPresenter = new ReportOverallPresenter(reportRepository);
             mPresenter.attach(this);
         } catch (Exception e) {
             Utils.handleException(e);
