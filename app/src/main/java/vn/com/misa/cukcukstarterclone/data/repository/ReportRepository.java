@@ -3,11 +3,12 @@ package vn.com.misa.cukcukstarterclone.data.repository;
 import java.util.List;
 
 import vn.com.misa.cukcukstarterclone.data.IOnLoadedCallback;
+import vn.com.misa.cukcukstarterclone.data.model.DetailsReport;
 import vn.com.misa.cukcukstarterclone.data.model.OverallReport;
 import vn.com.misa.cukcukstarterclone.data.source.IReportDataSource;
 
 /**
- * - Mục đích Class: Repository điều hướng xử lí dữ liệu liên quan đến {@link OverallReport}
+ * - Mục đích Class: Repository điều hướng xử lí dữ liệu liên quan đến {@link OverallReport} và {@link DetailsReport}
  *
  * @created_by KhanhNQ on 01-Feb-2021.
  */
@@ -50,5 +51,10 @@ public class ReportRepository implements IReportRepository {
     @Override
     public void getCashReport(String date, IOnLoadedCallback<List<OverallReport>> callback) {
         localDataSource.getCashReport(date, callback);
+    }
+
+    @Override
+    public void getDetailsReport(String date, IOnLoadedCallback<List<DetailsReport>> callback) {
+        localDataSource.getDetailsReport(date, callback);
     }
 }

@@ -74,6 +74,13 @@
     <string name="report_other">Thanh toán khác</string>
     <string name="vnd_unit">đ</string>
     <string name="string_income_by_day">DOANH THU THEO NGÀY</string>
+    <string name="total">Tổng:</string>
+    <string name="revenue">Doanh thu</string>
+    <string name="item_name">Tên mặt hàng</string>
+    <string name="quantity">Số lượng</string>
+    <string name="discount">Khuyến mãi</string>
+    <string name="price">Tiền hàng</string>
+    <string name="text_discount">KM:</string>
 
     <string-array name="unit_spinner">
         <item>"Suất"</item>

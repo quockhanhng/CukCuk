@@ -249,6 +249,7 @@ public class ReportOverallFragment extends BaseFragment<ReportOverallContract.Vi
         chartIncomeByDay.getDescription().setEnabled(false);
         chartIncomeByDay.getLegend().setEnabled(false);
         chartIncomeByDay.setTouchEnabled(true);
+        chartIncomeByDay.animateY(1000);
 
         IMarker marker = new MarkerViewReport(getContext(), R.layout.marker_view_report);
         chartIncomeByDay.setMarker(marker);

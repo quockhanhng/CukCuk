@@ -4,6 +4,7 @@ import java.util.List;
 
 import vn.com.misa.cukcukstarterclone.data.IOnLoadedCallback;
 import vn.com.misa.cukcukstarterclone.data.LoadingAsyncTask;
+import vn.com.misa.cukcukstarterclone.data.model.DetailsReport;
 import vn.com.misa.cukcukstarterclone.data.model.OverallReport;
 import vn.com.misa.cukcukstarterclone.data.source.IReportDataSource;
 import vn.com.misa.cukcukstarterclone.data.source.local.dao.IReportDao;
@@ -36,5 +37,10 @@ public class ReportLocalDataSource implements IReportDataSource.Local {
     @Override
     public void getCashReport(String date, IOnLoadedCallback<List<OverallReport>> callback) {
         new LoadingAsyncTask<String, List<OverallReport>>(callback, param -> reportDao.getOverallCashReport(date)).execute(date);
+    }
+
+    @Override
+    public void getDetailsReport(String date, IOnLoadedCallback<List<DetailsReport>> callback) {
+        new LoadingAsyncTask<String, List<DetailsReport>>(callback, param -> reportDao.getDetailsReport(date)).execute(date);
     }
 }

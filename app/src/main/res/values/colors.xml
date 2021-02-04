@@ -22,4 +22,13 @@
     <color name="green">#09AF4F</color>
     <color name="light_pink">#ff8181</color>
     <color name="red">#d52a2b</color>
+
+    <color name="pie_1">#0099fc</color>
+    <color name="pie_2">#fc7a7a</color>
+    <color name="pie_3">#07d42d</color>
+    <color name="pie_4">#fd9369</color>
+    <color name="pie_5">#7a89fe</color>
+    <color name="pie_6">#facb00</color>
+    <color name="pie_7">#af7cfb</color>
+    <color name="pie_8">#46d7ec</color>
 </resources>
