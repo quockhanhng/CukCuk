@@ -81,6 +81,7 @@
     <string name="discount">Khuyến mãi</string>
     <string name="price">Tiền hàng</string>
     <string name="text_discount">KM:</string>
+    <string name="string_income_by_hour">DOANH THU THEO GIỜ</string>
 
     <string-array name="unit_spinner">
         <item>"Suất"</item>

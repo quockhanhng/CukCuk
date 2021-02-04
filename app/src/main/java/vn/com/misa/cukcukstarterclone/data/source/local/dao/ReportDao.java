@@ -9,6 +9,7 @@ import java.util.List;
 import vn.com.misa.cukcukstarterclone.data.model.Cart;
 import vn.com.misa.cukcukstarterclone.data.model.CartItem;
 import vn.com.misa.cukcukstarterclone.data.model.DetailsReport;
+import vn.com.misa.cukcukstarterclone.data.model.HourReport;
 import vn.com.misa.cukcukstarterclone.data.model.MenuItem;
 import vn.com.misa.cukcukstarterclone.data.model.Order;
 import vn.com.misa.cukcukstarterclone.data.model.OverallReport;
@@ -79,6 +80,31 @@ public class ReportDao implements IReportDao {
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
                 list.add(new OverallReport(cursor));
+                cursor.moveToNext();
+            }
+        }
+
+        cursor.close();
+        return list;
+    }
+
+    @Override
+    public List<HourReport> getOverallReportByHours(String date) {
+        String from = date.split("to")[0];
+        String to = date.split("to")[1];
+        String query = "SELECT SUM(c." + Cart.TOTAL_AMOUNT + ") as " + HourReport.AMOUNT +
+                ", strftime('%H', o." + Order.CREATED_AT + ") as " + HourReport.HOUR +
+                " FROM " + Cart.TABLE_NAME + " c," + Order.TABLE_NAME + " o" +
+                " WHERE c." + Cart.ID + " = o." + Order.CART_ID +
+                " and o." + Order.CREATED_AT + " >= '" + from +
+                "' and o." + Order.CREATED_AT + " <= '" + to + " 23:59:59'" +
+                " GROUP BY " + HourReport.HOUR +
+                " ORDER BY o." + Order.CREATED_AT + " ASC";
+        Cursor cursor = database.rawQuery(query, null);
+        List<HourReport> list = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                list.add(new HourReport(cursor));
                 cursor.moveToNext();
             }
         }

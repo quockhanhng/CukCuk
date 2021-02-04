@@ -1,5 +1,6 @@
 package vn.com.misa.cukcukstarterclone.ui.report.overall;
 
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 import vn.com.misa.cukcukstarterclone.data.IOnLoadedCallback;
+import vn.com.misa.cukcukstarterclone.data.model.HourReport;
 import vn.com.misa.cukcukstarterclone.data.model.OverallReport;
 import vn.com.misa.cukcukstarterclone.data.repository.ReportRepository;
 import vn.com.misa.cukcukstarterclone.utils.Utils;
@@ -205,6 +207,24 @@ public class ReportOverallPresenter implements ReportOverallContract.Presenter {
                 view.showMessage(e.getMessage());
             }
         });
+
+        reportRepository.getReportByHours(date + "to" + date, new IOnLoadedCallback<List<HourReport>>() {
+            @Override
+            public void onSuccess(List<HourReport> data) {
+                if (data.size() != 0) {
+                    List<BarEntry> entries = new ArrayList<>();
+                    for (HourReport report : data) {
+                        entries.add(new BarEntry(report.getHour(), report.getAmount()));
+                    }
+                    view.showReportByHour(entries);
+                }
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                view.showMessage(e.getMessage());
+            }
+        });
     }
 
     /**
@@ -255,6 +275,24 @@ public class ReportOverallPresenter implements ReportOverallContract.Presenter {
                     });
                 } else {
                     view.showEmptyReport();
+                }
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                view.showMessage(e.getMessage());
+            }
+        });
+
+        reportRepository.getReportByHours(from + "to" + end, new IOnLoadedCallback<List<HourReport>>() {
+            @Override
+            public void onSuccess(List<HourReport> data) {
+                if (data.size() != 0) {
+                    List<BarEntry> entries = new ArrayList<>();
+                    for (HourReport report : data) {
+                        entries.add(new BarEntry(report.getHour(), report.getAmount()));
+                    }
+                    view.showReportByHour(entries);
                 }
             }
 

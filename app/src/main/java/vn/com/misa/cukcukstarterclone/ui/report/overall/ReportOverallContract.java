@@ -1,5 +1,6 @@
 package vn.com.misa.cukcukstarterclone.ui.report.overall;
 
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 
 import java.util.List;
@@ -24,7 +25,9 @@ public class ReportOverallContract {
 
         void hideReportByDay();
 
-        void showReportByDay(List<Entry> reportsEntry);
+        void showReportByDay(List<Entry> reportEntries);
+
+        void showReportByHour(List<BarEntry> reportEntries);
     }
 
     interface Presenter extends BaseContract.Presenter<View> {
