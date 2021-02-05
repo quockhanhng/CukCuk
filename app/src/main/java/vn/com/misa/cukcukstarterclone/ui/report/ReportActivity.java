@@ -9,6 +9,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentTransaction;
 
 import vn.com.misa.cukcukstarterclone.R;
+import vn.com.misa.cukcukstarterclone.ui.report.details.ReportDetailsFragment;
 import vn.com.misa.cukcukstarterclone.ui.report.overall.ReportOverallFragment;
 import vn.com.misa.cukcukstarterclone.utils.Utils;
 
@@ -48,6 +49,12 @@ public class ReportActivity extends AppCompatActivity {
     }
 
     private void showReportDetails() {
-
+        try {
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.add(R.id.root, new ReportDetailsFragment(), ReportDetailsFragment.TAG).addToBackStack(ReportDetailsFragment.TAG);
+            fragmentTransaction.commit();
+        } catch (Exception e) {
+            Utils.handleException(e);
+        }
     }
 }

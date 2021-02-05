@@ -209,6 +209,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/viewOtherDivider">
@@ -240,7 +241,7 @@
                 <com.github.mikephil.charting.charts.LineChart
                     android:id="@+id/chartIncomeByDay"
                     android:layout_width="0dp"
-                    android:layout_height="180dp"
+                    android:layout_height="160dp"
                     android:layout_weight="1" />
 
                 <TextView
@@ -249,6 +250,61 @@
                     android:layout_gravity="bottom"
                     android:layout_marginBottom="@dimen/dp_8"
                     android:text="Ngày"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/dp_8"
+                android:background="@color/grey" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llIncomeByHour"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/llIncomeByDay">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp_8"
+                android:text="@string/string_income_by_hour"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_8"
+                android:text="Nghìn đồng"
+                android:textColor="@color/black" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_8"
+                android:orientation="horizontal"
+                android:paddingEnd="@dimen/dp_8">
+
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/chartIncomeByHour"
+                    android:layout_width="0dp"
+                    android:layout_height="160dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="@dimen/dp_8"
+                    android:text="Giờ"
                     android:textColor="@color/black" />
             </LinearLayout>
 

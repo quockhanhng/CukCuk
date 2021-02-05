@@ -13,10 +13,14 @@ import androidx.core.content.ContextCompat;
 import androidx.core.util.Pair;
 import androidx.fragment.app.FragmentManager;
 
+import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.IMarker;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -38,8 +42,8 @@ import static vn.com.misa.cukcukstarterclone.utils.Constants.DAY_IN_WEEK_FORMAT;
 /**
  * @created_by KhanhNQ on 31-Jan-21
  */
-public class ReportOverallFragment extends BaseFragment<ReportContract.View, ReportPresenter>
-        implements ReportContract.View {
+public class ReportOverallFragment extends BaseFragment<ReportOverallContract.View, ReportOverallPresenter>
+        implements ReportOverallContract.View {
 
     public static String TAG = "ReportOverallFragment";
 
@@ -51,8 +55,10 @@ public class ReportOverallFragment extends BaseFragment<ReportContract.View, Rep
     private ConstraintLayout clContents;
     private LinearLayout llIncomeByDay;
     private LineChart chartIncomeByDay;
+    private LinearLayout llIncomeByHour;
+    private BarChart chartIncomeByHour;
 
-    private ReportPresenter mPresenter;
+    private ReportOverallPresenter mPresenter;
 
     public ReportOverallFragment() {
     }
@@ -85,6 +91,8 @@ public class ReportOverallFragment extends BaseFragment<ReportContract.View, Rep
             clContents = view.findViewById(R.id.clContents);
             llIncomeByDay = view.findViewById(R.id.llIncomeByDay);
             chartIncomeByDay = view.findViewById(R.id.chartIncomeByDay);
+            llIncomeByHour = view.findViewById(R.id.llIncomeByHour);
+            chartIncomeByHour = view.findViewById(R.id.chartIncomeByHour);
 
             String[] reportSelection = getResources().getStringArray(R.array.report_by);
             ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, reportSelection);
@@ -117,7 +125,7 @@ public class ReportOverallFragment extends BaseFragment<ReportContract.View, Rep
         try {
             ReportRepository reportRepository = Injector.getReportRepository(requireContext());
 
-            mPresenter = new ReportPresenter(reportRepository);
+            mPresenter = new ReportOverallPresenter(reportRepository);
             mPresenter.attach(this);
         } catch (Exception e) {
             Utils.handleException(e);
@@ -231,9 +239,9 @@ public class ReportOverallFragment extends BaseFragment<ReportContract.View, Rep
      * @created_by KhanhNQ on 31-Jan-21
      */
     @Override
-    public void showReportByDay(List<Entry> reportsEntry) {
+    public void showReportByDay(List<Entry> reportEntries) {
         llIncomeByDay.setVisibility(View.VISIBLE);
-        LineDataSet dataSet = new LineDataSet(reportsEntry, "");
+        LineDataSet dataSet = new LineDataSet(reportEntries, "");
         dataSet.setDrawCircles(false);
         dataSet.setColor(ContextCompat.getColor(getContext(), R.color.blue));
         dataSet.setFillColor(ContextCompat.getColor(getContext(), R.color.blue));
@@ -249,6 +257,7 @@ public class ReportOverallFragment extends BaseFragment<ReportContract.View, Rep
         chartIncomeByDay.getDescription().setEnabled(false);
         chartIncomeByDay.getLegend().setEnabled(false);
         chartIncomeByDay.setTouchEnabled(true);
+        chartIncomeByDay.animateY(1000);
 
         IMarker marker = new MarkerViewReport(getContext(), R.layout.marker_view_report);
         chartIncomeByDay.setMarker(marker);
@@ -258,7 +267,7 @@ public class ReportOverallFragment extends BaseFragment<ReportContract.View, Rep
         xAxis.setDrawAxisLine(true);
         xAxis.setDrawGridLines(false);
         xAxis.enableGridDashedLine(5f, 6f, 0f);
-        xAxis.setLabelCount(reportsEntry.size(), true);
+        xAxis.setLabelCount(reportEntries.size(), true);
         xAxis.setValueFormatter(new ValueFormatter() {
             @Override
             public String getFormattedValue(float value) {
@@ -292,6 +301,75 @@ public class ReportOverallFragment extends BaseFragment<ReportContract.View, Rep
         LineData lineData = new LineData(dataSet);
         chartIncomeByDay.setData(lineData);
         chartIncomeByDay.invalidate();
+    }
+
+    /**
+     * - Mục đích method: Hiển thị thông tin thống kê theo giờ
+     *
+     * @param reportEntries danh sách thống kê
+     * @created_by KhanhNQ on 04-Feb-21
+     */
+    @Override
+    public void showReportByHour(List<BarEntry> reportEntries) {
+        llIncomeByHour.setVisibility(View.VISIBLE);
+        BarDataSet dataSet = new BarDataSet(reportEntries, "");
+        dataSet.setColor(ContextCompat.getColor(getContext(), R.color.blue));
+        dataSet.setHighLightColor(ContextCompat.getColor(getContext(), R.color.darker_blue));
+        dataSet.setValueTextSize(10f);
+        dataSet.setFormLineWidth(5f);
+        dataSet.setFormSize(5.f);
+        dataSet.setDrawValues(false);
+
+        // Hide Right Axis
+        chartIncomeByHour.getAxisRight().setEnabled(false);
+        chartIncomeByHour.getDescription().setEnabled(false);
+        chartIncomeByHour.getLegend().setEnabled(false);
+        chartIncomeByHour.setTouchEnabled(true);
+        chartIncomeByHour.animateY(1000);
+
+        IMarker marker = new MarkerHourReport(getContext(), R.layout.marker_view_report);
+        chartIncomeByHour.setMarker(marker);
+
+        XAxis xAxis = chartIncomeByHour.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setDrawAxisLine(true);
+        xAxis.setDrawGridLines(false);
+        xAxis.enableGridDashedLine(5f, 6f, 0f);
+        xAxis.setLabelCount(reportEntries.size());
+        xAxis.setCenterAxisLabels(false);
+        xAxis.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                try {
+                    return (int) value + ":00";
+                } catch (Exception e) {
+                    Utils.handleException(e);
+                }
+                return "";
+            }
+        });
+
+        YAxis yAxis = chartIncomeByHour.getAxisLeft();
+        yAxis.removeAllLimitLines();
+        yAxis.setAxisMinimum(0f);
+        yAxis.enableGridDashedLine(5f, 5f, 0f);
+        yAxis.setDrawZeroLine(false);
+        yAxis.setDrawLimitLinesBehindData(false);
+        yAxis.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                try {
+                    return new DecimalFormat("###,###,###").format(value / 1000);
+                } catch (Exception e) {
+                    Utils.handleException(e);
+                }
+                return "";
+            }
+        });
+
+        BarData barData = new BarData(dataSet);
+        chartIncomeByHour.setData(barData);
+        chartIncomeByHour.invalidate();
     }
 
     @Override

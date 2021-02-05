@@ -3,11 +3,13 @@ package vn.com.misa.cukcukstarterclone.data.repository;
 import java.util.List;
 
 import vn.com.misa.cukcukstarterclone.data.IOnLoadedCallback;
+import vn.com.misa.cukcukstarterclone.data.model.DetailsReport;
+import vn.com.misa.cukcukstarterclone.data.model.HourReport;
 import vn.com.misa.cukcukstarterclone.data.model.OverallReport;
 import vn.com.misa.cukcukstarterclone.data.source.IReportDataSource;
 
 /**
- * - Mục đích Class: Repository điều hướng xử lí dữ liệu liên quan đến {@link OverallReport}
+ * - Mục đích Class: Repository điều hướng xử lí dữ liệu liên quan đến {@link OverallReport} và {@link DetailsReport}
  *
  * @created_by KhanhNQ on 01-Feb-2021.
  */
@@ -50,5 +52,29 @@ public class ReportRepository implements IReportRepository {
     @Override
     public void getCashReport(String date, IOnLoadedCallback<List<OverallReport>> callback) {
         localDataSource.getCashReport(date, callback);
+    }
+
+    /**
+     * - Mục đích method: Lấy thống kê doanh số theo giờ
+     *
+     * @param date     ngày muốn lấy ra dữ liệu
+     * @param callback Callback xử lý dữ liệu sau khi lấy được
+     * @created_by KhanhNQ on 04-Feb-21
+     */
+    @Override
+    public void getReportByHours(String date, IOnLoadedCallback<List<HourReport>> callback) {
+        localDataSource.getReportByHours(date, callback);
+    }
+
+    /**
+     * - Mục đích method: Lấy thống kê doanh số theo sản phẩm
+     *
+     * @param date     ngày muốn lấy ra dữ liệu
+     * @param callback Callback xử lý dữ liệu sau khi lấy được
+     * @created_by KhanhNQ on 03-Feb-21
+     */
+    @Override
+    public void getDetailsReport(String date, IOnLoadedCallback<List<DetailsReport>> callback) {
+        localDataSource.getDetailsReport(date, callback);
     }
 }
