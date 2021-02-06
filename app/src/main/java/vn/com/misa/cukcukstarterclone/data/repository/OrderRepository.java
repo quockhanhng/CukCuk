@@ -32,6 +32,11 @@ public class OrderRepository implements IOrderRepository {
     }
 
     @Override
+    public void getOrdersByDate(String date, IOnLoadedCallback<List<Order>> callback) {
+        localDataSource.getOrdersByDate(date, callback);
+    }
+
+    @Override
     public void getOrderById(String id, IOnLoadedCallback<Order> callback) {
         localDataSource.getOrderById(id, callback);
     }

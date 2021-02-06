@@ -14,6 +14,8 @@ import vn.com.misa.cukcukstarterclone.data.model.Order;
 public interface IOrderRepository {
     void getAllOrders(IOnLoadedCallback<List<Order>> callback);
 
+    void getOrdersByDate(String date, IOnLoadedCallback<List<Order>> callback);
+
     void getOrderById(String id, IOnLoadedCallback<Order> callback);
 
     void addNewOrder(Order newOrder, IOnLoadedCallback<Boolean> callback);

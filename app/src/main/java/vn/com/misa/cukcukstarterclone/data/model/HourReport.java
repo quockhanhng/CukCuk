@@ -17,7 +17,7 @@ public class HourReport {
     public HourReport(Cursor cursor) {
         try {
             this.amount = cursor.getFloat(cursor.getColumnIndex(AMOUNT));
-            this.hour = cursor.getInt(cursor.getColumnIndex(HOUR));
+            this.hour = Integer.parseInt(cursor.getString(cursor.getColumnIndex(HOUR)));
         } catch (Exception e) {
             Utils.handleException(e);
         }

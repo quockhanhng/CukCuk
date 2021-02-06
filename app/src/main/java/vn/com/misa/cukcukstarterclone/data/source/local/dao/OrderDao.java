@@ -7,6 +7,10 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
+import vn.com.misa.cukcukstarterclone.data.model.Cart;
+import vn.com.misa.cukcukstarterclone.data.model.CartItem;
+import vn.com.misa.cukcukstarterclone.data.model.DetailsReport;
+import vn.com.misa.cukcukstarterclone.data.model.MenuItem;
 import vn.com.misa.cukcukstarterclone.data.model.Order;
 import vn.com.misa.cukcukstarterclone.data.source.local.database.AppDatabase;
 
@@ -42,6 +46,24 @@ public class OrderDao implements IOrderDao {
         }
         cursor.close();
         return list;
+    }
+
+    @Override
+    public List<Order> getOrdersByDate(String date) {
+        String from = date.split("to")[0];
+        String to = date.split("to")[1] + " 23:59:59";
+        String selection = Order.CREATED_AT + " >= ? AND " + Order.CREATED_AT + " <= ?";
+        String[] selectionArg = {from, to};
+        Cursor cursor = database.query(Order.TABLE_NAME, null, selection, selectionArg, null, null, null);
+        List<Order> orders = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                orders.add(new Order(cursor));
+                cursor.moveToNext();
+            }
+        }
+        cursor.close();
+        return orders;
     }
 
     @Override

@@ -11,6 +11,8 @@ public interface IOrderDao {
 
     List<Order> getAllOrders();
 
+    List<Order> getOrdersByDate(String date);
+
     Order getOrderById(String id);
 
     boolean addNewOrder(Order newOrder);

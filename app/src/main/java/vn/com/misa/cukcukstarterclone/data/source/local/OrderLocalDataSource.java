@@ -34,6 +34,11 @@ public class OrderLocalDataSource implements IOrderDataSource.Local {
     }
 
     @Override
+    public void getOrdersByDate(String date, IOnLoadedCallback<List<Order>> callback) {
+        new LoadingAsyncTask<String, List<Order>>(callback, param -> orderDao.getOrdersByDate(date)).execute(date);
+    }
+
+    @Override
     public void getOrderById(String id, IOnLoadedCallback<Order> callback) {
         new LoadingAsyncTask<String, Order>(callback, param -> orderDao.getOrderById(id)).execute(id);
     }

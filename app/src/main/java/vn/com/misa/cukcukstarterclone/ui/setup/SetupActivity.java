@@ -1,7 +1,10 @@
 package vn.com.misa.cukcukstarterclone.ui.setup;
 
 import android.content.Intent;
+import android.os.Bundle;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -24,34 +27,22 @@ import vn.com.misa.cukcukstarterclone.utils.SharedPreferenceHelper;
 /**
  * @created_by KhanhNQ on 12-Jan-21
  */
-public class SetupActivity extends BaseActivity<SetupContract.View, SetupPresenter>
-        implements SetupContract.View,
-        SelectBusinessTypeFragment.ISelectBusinessTypeCallback,
+public class SetupActivity extends AppCompatActivity
+        implements SelectBusinessTypeFragment.ISelectBusinessTypeCallback,
         SetUpMenuFragment.ISetUpMenuCallback,
         FinishSetupFragment.IFinishSetUpCallback,
         MenuItemListSettingFragment.IOnModifyMenuItem {
 
-    private SetupPresenter presenter;
-
     @Override
-    protected int getLayout() {
-        return R.layout.activity_setup;
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_setup);
+
+        initData();
     }
 
-    @Override
-    protected void bindViews() {
-        presenter = new SetupPresenter();
-    }
-
-    @Override
-    protected void initData() {
+    private void initData() {
         initStep1Fragment();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        presenter.detach();
     }
 
     /**
