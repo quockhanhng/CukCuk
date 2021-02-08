@@ -192,7 +192,7 @@ public class ReportPresenter implements ReportContract.Presenter {
 
                         @Override
                         public void onFailure(Exception e) {
-                            view.showMessage(e.getMessage());
+                            view.showErrorMessage(e.getMessage());
                         }
                     });
                 } else {
@@ -202,7 +202,7 @@ public class ReportPresenter implements ReportContract.Presenter {
 
             @Override
             public void onFailure(Exception e) {
-                view.showMessage(e.getMessage());
+                view.showErrorMessage(e.getMessage());
             }
         });
     }
@@ -250,7 +250,7 @@ public class ReportPresenter implements ReportContract.Presenter {
 
                         @Override
                         public void onFailure(Exception e) {
-                            view.showMessage(e.getMessage());
+                            view.showErrorMessage(e.getMessage());
                         }
                     });
                 } else {
@@ -260,7 +260,7 @@ public class ReportPresenter implements ReportContract.Presenter {
 
             @Override
             public void onFailure(Exception e) {
-                view.showMessage(e.getMessage());
+                view.showErrorMessage(e.getMessage());
             }
         });
     }

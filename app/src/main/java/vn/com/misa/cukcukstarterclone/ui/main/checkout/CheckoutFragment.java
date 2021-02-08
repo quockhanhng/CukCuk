@@ -168,7 +168,7 @@ public class CheckoutFragment extends BaseFragment<CheckoutContract.View, Checko
                 cart.setStatus(CartStatus.PAID);
                 mPresenter.addNewOrder(cart, new Order(paymentType, pay, cart.getId()));
             } else {
-                showMessage(String.valueOf(pay));
+                showErrorMessage(String.valueOf(pay));
                 showError();
             }
         } catch (Exception e) {

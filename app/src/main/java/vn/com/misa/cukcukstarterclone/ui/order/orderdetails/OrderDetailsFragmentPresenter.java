@@ -34,7 +34,7 @@ public class OrderDetailsFragmentPresenter implements OrderDetailsFragmentContra
 
             @Override
             public void onFailure(Exception e) {
-                view.showMessage(e.getLocalizedMessage());
+                view.showErrorMessage(e.getLocalizedMessage());
             }
         });
     }
@@ -49,7 +49,7 @@ public class OrderDetailsFragmentPresenter implements OrderDetailsFragmentContra
 
                 @Override
                 public void onFailure(Exception e) {
-                    view.showMessage(e.getLocalizedMessage());
+                    view.showErrorMessage(e.getLocalizedMessage());
                 }
             });
         }

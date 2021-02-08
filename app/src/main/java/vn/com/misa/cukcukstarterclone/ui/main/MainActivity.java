@@ -7,10 +7,14 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,12 +24,13 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Objects;
 
 import vn.com.misa.cukcukstarterclone.R;
 import vn.com.misa.cukcukstarterclone.data.model.Cart;
+import vn.com.misa.cukcukstarterclone.ui.login.LoginActivity;
 import vn.com.misa.cukcukstarterclone.ui.main.addcartitem.NewCartItemFragment;
 import vn.com.misa.cukcukstarterclone.ui.main.addorder.AddOrderFragment;
 import vn.com.misa.cukcukstarterclone.ui.main.addorder.dto.MenuItemDto;
@@ -34,6 +39,7 @@ import vn.com.misa.cukcukstarterclone.ui.main.listorders.ListOrdersFragment;
 import vn.com.misa.cukcukstarterclone.ui.menu.MenuActivity;
 import vn.com.misa.cukcukstarterclone.ui.order.OrderActivity;
 import vn.com.misa.cukcukstarterclone.ui.report.ReportActivity;
+import vn.com.misa.cukcukstarterclone.utils.SharedPreferenceHelper;
 import vn.com.misa.cukcukstarterclone.utils.Utils;
 
 public class MainActivity extends AppCompatActivity
@@ -41,6 +47,19 @@ public class MainActivity extends AppCompatActivity
         AddOrderFragment.IAddOrderFragmentListener {
 
     private ActionBarDrawerToggle drawerToggle;
+    private TextView tvUsername;
+    private TextView tvOrderList;
+    private TextView tvMenuItems;
+    private TextView tvFavServe;
+    private TextView tvReport;
+    private TextView tvSettings;
+    private TextView tvSync;
+    private TextView tvSecurity;
+    private TextView tvShare;
+    private TextView tvRating;
+    private TextView tvReportBug;
+    private TextView tvInfo;
+    private TextView tvSignOut;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,17 +73,34 @@ public class MainActivity extends AppCompatActivity
     protected void bindViews() {
         try {
             DrawerLayout drawerLayout = findViewById(R.id.drawableLayout);
-            drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+            drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
+                @Override
+                public void onDrawerClosed(View drawerView) {
+                    super.onDrawerClosed(drawerView);
+                    try {
+                        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        if (getCurrentFocus().getWindowToken() != null) {
+                            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                        }
+                    } catch (Exception e) {
+                        Utils.handleException(e);
+                    }
+                }
+
+                @Override
+                public void onDrawerOpened(View drawerView) {
+                    super.onDrawerOpened(drawerView);
+
+                    try {
+                        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                    } catch (Exception e) {
+                        Utils.handleException(e);
+                    }
+                }
+            };
             drawerLayout.addDrawerListener(drawerToggle);
-
-            NavigationView navView = findViewById(R.id.navView);
-            navView.setItemIconTintList(null);
-            navView.setNavigationItemSelectedListener(menuItem -> {
-                navigateTo(menuItem.getTitle().toString());
-                drawerLayout.closeDrawers();
-
-                return true;
-            });
+            drawerToggle.syncState();
 
             Toolbar toolbar = findViewById(R.id.toolbar);
             toolbar.setTitle("");
@@ -72,18 +108,39 @@ public class MainActivity extends AppCompatActivity
             Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu);
 
+            tvUsername = findViewById(R.id.tvUsername);
+            tvOrderList = findViewById(R.id.tvOrderList);
+            tvMenuItems = findViewById(R.id.tvMenuItems);
+            tvFavServe = findViewById(R.id.tvFavServe);
+            tvReport = findViewById(R.id.tvReport);
+            tvSettings = findViewById(R.id.tvSettings);
+            tvSync = findViewById(R.id.tvSync);
+            tvSecurity = findViewById(R.id.tvSecurity);
+            tvShare = findViewById(R.id.tvShare);
+            tvRating = findViewById(R.id.tvRating);
+            tvReportBug = findViewById(R.id.tvReportBug);
+            tvInfo = findViewById(R.id.tvInfo);
+            tvSignOut = findViewById(R.id.tvSignOut);
+
+            tvOrderList.setOnClickListener(v -> {
+                drawerLayout.closeDrawers();
+                startActivity(new Intent(this, OrderActivity.class));
+            });
+            tvMenuItems.setOnClickListener(v -> {
+                drawerLayout.closeDrawers();
+                startActivity(new Intent(this, MenuActivity.class));
+            });
+            tvReport.setOnClickListener(v -> {
+                drawerLayout.closeDrawers();
+                startActivity(new Intent(this, ReportActivity.class));
+            });
+            tvSignOut.setOnClickListener(v -> {
+                SharedPreferenceHelper.setSharedPreferenceBoolean(this, SharedPreferenceHelper.KEY_LOGIN, false);
+                startActivity(new Intent(this, LoginActivity.class));
+                finish();
+            });
         } catch (Exception e) {
             Utils.handleException(e);
-        }
-    }
-
-    private void navigateTo(String title) {
-        if ("Danh sách hóa đơn".equals(title)) {
-            startActivity(new Intent(this, OrderActivity.class));
-        } else if ("Danh sách thực đơn".equals(title)) {
-            startActivity(new Intent(this, MenuActivity.class));
-        } else if ("Báo cáo".equals(title)) {
-            startActivity(new Intent(this, ReportActivity.class));
         }
     }
 
@@ -143,6 +200,9 @@ public class MainActivity extends AppCompatActivity
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.add(R.id.detailsContainer, orderListFragment);
             fragmentTransaction.commit();
+
+            FirebaseAuth auth = FirebaseAuth.getInstance();
+            tvUsername.setText(auth.getCurrentUser().getEmail().split("@")[0]);
         } catch (Exception e) {
             Utils.handleException(e);
         }

@@ -51,7 +51,7 @@ public class OrderPresenter implements OrderContract.Presenter {
 
             @Override
             public void onFailure(Exception e) {
-                view.showMessage(e.getLocalizedMessage());
+                view.showErrorMessage(e.getLocalizedMessage());
             }
         });
     }
@@ -160,7 +160,7 @@ public class OrderPresenter implements OrderContract.Presenter {
 
             @Override
             public void onFailure(Exception e) {
-                view.showMessage(e.getMessage());
+                view.showErrorMessage(e.getMessage());
             }
         });
     }
@@ -178,7 +178,7 @@ public class OrderPresenter implements OrderContract.Presenter {
 
             @Override
             public void onFailure(Exception e) {
-                view.showMessage(e.getMessage());
+                view.showErrorMessage(e.getMessage());
             }
         });
     }
@@ -203,7 +203,7 @@ public class OrderPresenter implements OrderContract.Presenter {
 
                 @Override
                 public void onFailure(Exception e) {
-                    view.showMessage(e.getMessage());
+                    view.showErrorMessage(e.getMessage());
                     if (finalIsEnd) {
                         view.loadOrders(orderDtos);
                     }

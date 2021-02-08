@@ -2,17 +2,22 @@ package vn.com.misa.cukcukstarterclone.di;
 
 import android.content.Context;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import vn.com.misa.cukcukstarterclone.data.repository.CartItemRepository;
 import vn.com.misa.cukcukstarterclone.data.repository.CartRepository;
+import vn.com.misa.cukcukstarterclone.data.repository.IUserRepository;
 import vn.com.misa.cukcukstarterclone.data.repository.MenuGroupRepository;
 import vn.com.misa.cukcukstarterclone.data.repository.MenuItemRepository;
 import vn.com.misa.cukcukstarterclone.data.repository.OrderRepository;
 import vn.com.misa.cukcukstarterclone.data.repository.ReportRepository;
+import vn.com.misa.cukcukstarterclone.data.repository.UserRepository;
 import vn.com.misa.cukcukstarterclone.data.source.ICartDataSource;
 import vn.com.misa.cukcukstarterclone.data.source.ICartItemDataSource;
 import vn.com.misa.cukcukstarterclone.data.source.IMenuItemDataSource;
 import vn.com.misa.cukcukstarterclone.data.source.IOrderDataSource;
 import vn.com.misa.cukcukstarterclone.data.source.IReportDataSource;
+import vn.com.misa.cukcukstarterclone.data.source.IUserDataSource;
 import vn.com.misa.cukcukstarterclone.data.source.local.CartItemLocalDataSource;
 import vn.com.misa.cukcukstarterclone.data.source.local.CartLocalDataSource;
 import vn.com.misa.cukcukstarterclone.data.source.local.MenuGroupLocalDataSource;
@@ -33,6 +38,7 @@ import vn.com.misa.cukcukstarterclone.data.source.local.dao.ReportDao;
 import vn.com.misa.cukcukstarterclone.data.source.local.database.AppDatabase;
 import vn.com.misa.cukcukstarterclone.data.source.remote.MenuGroupRemoteDataSource;
 import vn.com.misa.cukcukstarterclone.data.source.remote.MenuItemRemoteDataSource;
+import vn.com.misa.cukcukstarterclone.data.source.remote.UserRemoteDataSource;
 
 /**
  * - Mục đích Class: Singleton class để khởi tạo các phương thức lấy Repository
@@ -130,5 +136,11 @@ public final class Injector {
         IReportDao reportDao = ReportDao.getInstance(database);
         IReportDataSource.Local reportLocalDataSource = ReportLocalDataSource.getInstance(reportDao);
         return ReportRepository.getInstance(reportLocalDataSource);
+    }
+
+    public static UserRepository getUserRepository() {
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        IUserDataSource.Remote userRemoteDataSource = UserRemoteDataSource.getInstance(firebaseAuth);
+        return UserRepository.getInstance(userRemoteDataSource);
     }
 }

@@ -82,6 +82,20 @@
     <string name="price">Tiền hàng</string>
     <string name="text_discount">KM:</string>
     <string name="string_income_by_hour">DOANH THU THEO GIỜ</string>
+    <string name="cukcuk">CUKCUK</string>
+    <string name="string_forget_password">Quên mật khẩu?</string>
+    <string name="btn_login">Đăng Nhập</string>
+    <string name="string_enter_email">Nhập email</string>
+    <string name="string_enter_password">Nhập mật khẩu</string>
+    <string name="string_do_you_have_an_account">Bạn chưa có tài khoản?</string>
+    <string name="register">Đăng ký</string>
+    <string name="email_must_not_be_empty">Email không được để trống</string>
+    <string name="password_must_not_be_empty">Mật khẩu không được để trống</string>
+    <string name="email">Email (*)</string>
+    <string name="phone_number">Số điện thoại</string>
+    <string name="password">Mật khẩu</string>
+    <string name="password_confirm">Nhập lại mật khẩu</string>
+    <string name="password_confirm_wrong">Mật khẩu nhập lại không đúng</string>
 
     <string-array name="unit_spinner">
         <item>"Suất"</item>

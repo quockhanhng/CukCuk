@@ -4,7 +4,6 @@ import vn.com.misa.cukcukstarterclone.R;
 import vn.com.misa.cukcukstarterclone.data.IOnLoadedCallback;
 import vn.com.misa.cukcukstarterclone.data.model.Cart;
 import vn.com.misa.cukcukstarterclone.data.model.Order;
-import vn.com.misa.cukcukstarterclone.data.repository.ICartItemRepository;
 import vn.com.misa.cukcukstarterclone.data.repository.ICartRepository;
 import vn.com.misa.cukcukstarterclone.data.repository.IOrderRepository;
 
@@ -44,20 +43,20 @@ public class CheckoutPresenter implements CheckoutContract.Presenter {
                         if (isSuccess) {
                             view.addOrderSuccess();
                         } else {
-                            view.showMessage(R.string.error_add_new_cart_item);
+                            view.showErrorMessage(R.string.error_add_new_cart_item);
                         }
                     }
 
                     @Override
                     public void onFailure(Exception e) {
-                        view.showMessage(e.getLocalizedMessage());
+                        view.showErrorMessage(e.getLocalizedMessage());
                     }
                 });
             }
 
             @Override
             public void onFailure(Exception e) {
-                view.showMessage(e.getLocalizedMessage());
+                view.showErrorMessage(e.getLocalizedMessage());
             }
         });
     }

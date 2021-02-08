@@ -7,8 +7,8 @@ import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
 
 import vn.com.misa.cukcukstarterclone.R;
+import vn.com.misa.cukcukstarterclone.ui.login.LoginActivity;
 import vn.com.misa.cukcukstarterclone.ui.main.MainActivity;
-import vn.com.misa.cukcukstarterclone.ui.setup.SetupActivity;
 import vn.com.misa.cukcukstarterclone.utils.SharedPreferenceHelper;
 
 import static vn.com.misa.cukcukstarterclone.utils.Constants.DELAY_TIME;
@@ -20,21 +20,21 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        checkLoginFirstTime();
+        checkLogin();
     }
 
-    private void checkLoginFirstTime() {
-        boolean isLoggedIn = SharedPreferenceHelper.getSharedPreferenceBoolean(this, SharedPreferenceHelper.KEY_LOGIN_FIRST_TIME, false);
+    private void checkLogin() {
+        boolean isLoggedIn = SharedPreferenceHelper.getSharedPreferenceBoolean(this, SharedPreferenceHelper.KEY_LOGIN, false);
         if (isLoggedIn) {
             goToMain();
         } else {
-            setUpMenu();
+            login();
         }
     }
 
-    public void setUpMenu() {
+    public void login() {
         new Handler().postDelayed(() -> {
-            Intent intent = new Intent(this, SetupActivity.class);
+            Intent intent = new Intent(this, LoginActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);

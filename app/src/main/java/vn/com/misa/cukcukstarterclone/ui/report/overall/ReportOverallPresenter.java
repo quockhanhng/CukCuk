@@ -194,7 +194,7 @@ public class ReportOverallPresenter implements ReportOverallContract.Presenter {
 
                         @Override
                         public void onFailure(Exception e) {
-                            view.showMessage(e.getMessage());
+                            view.showErrorMessage(e.getMessage());
                         }
                     });
                 } else {
@@ -204,7 +204,7 @@ public class ReportOverallPresenter implements ReportOverallContract.Presenter {
 
             @Override
             public void onFailure(Exception e) {
-                view.showMessage(e.getMessage());
+                view.showErrorMessage(e.getMessage());
             }
         });
 
@@ -222,7 +222,7 @@ public class ReportOverallPresenter implements ReportOverallContract.Presenter {
 
             @Override
             public void onFailure(Exception e) {
-                view.showMessage(e.getMessage());
+                view.showErrorMessage(e.getMessage());
             }
         });
     }
@@ -270,7 +270,7 @@ public class ReportOverallPresenter implements ReportOverallContract.Presenter {
 
                         @Override
                         public void onFailure(Exception e) {
-                            view.showMessage(e.getMessage());
+                            view.showErrorMessage(e.getMessage());
                         }
                     });
                 } else {
@@ -280,7 +280,7 @@ public class ReportOverallPresenter implements ReportOverallContract.Presenter {
 
             @Override
             public void onFailure(Exception e) {
-                view.showMessage(e.getMessage());
+                view.showErrorMessage(e.getMessage());
             }
         });
 
@@ -298,7 +298,7 @@ public class ReportOverallPresenter implements ReportOverallContract.Presenter {
 
             @Override
             public void onFailure(Exception e) {
-                view.showMessage(e.getMessage());
+                view.showErrorMessage(e.getMessage());
             }
         });
     }

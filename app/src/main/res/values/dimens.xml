@@ -9,6 +9,7 @@
     <dimen name="menu_item_width">90dp</dimen>
     <dimen name="menu_item_details_image_size">120dp</dimen>
     <dimen name="navigation_header_height">90dp</dimen>
+    <dimen name="navigation_drawable_width">300dp</dimen>
     <dimen name="navigation_item_height">48dp</dimen>
     <dimen name="user_profile_image_size">70dp</dimen>
 
@@ -20,4 +21,6 @@
     <dimen name="card_view_margin">4dp</dimen>
     <dimen name="cart_bottom_bar_height">60dp</dimen>
     <dimen name="view_divider">6dp</dimen>
+    <dimen name="corner_size_default">8dp</dimen>
+    <dimen name="stroke_size_default">1dp</dimen>
 </resources>

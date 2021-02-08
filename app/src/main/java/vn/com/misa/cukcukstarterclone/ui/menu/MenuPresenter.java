@@ -5,8 +5,6 @@ import java.util.List;
 import vn.com.misa.cukcukstarterclone.data.IOnLoadedCallback;
 import vn.com.misa.cukcukstarterclone.data.model.MenuGroup;
 import vn.com.misa.cukcukstarterclone.data.repository.IMenuGroupRepository;
-import vn.com.misa.cukcukstarterclone.data.repository.IMenuItemRepository;
-import vn.com.misa.cukcukstarterclone.data.repository.MenuItemRepository;
 
 /**
  * - Mục đích Class:
@@ -43,7 +41,7 @@ public class MenuPresenter implements MenuContract.Presenter {
 
             @Override
             public void onFailure(Exception e) {
-                view.showMessage(e.getLocalizedMessage());
+                view.showErrorMessage(e.getLocalizedMessage());
             }
         });
     }
@@ -58,7 +56,7 @@ public class MenuPresenter implements MenuContract.Presenter {
 
             @Override
             public void onFailure(Exception e) {
-                view.showMessage(e.getMessage());
+                view.showErrorMessage(e.getMessage());
             }
         });
     }

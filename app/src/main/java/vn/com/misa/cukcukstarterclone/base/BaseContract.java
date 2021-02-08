@@ -13,8 +13,13 @@ public interface BaseContract {
     }
 
     interface View {
-        void showMessage(String msg);
+        void showErrorMessage(String msg);
+        void showErrorMessage(@StringRes int resId);
 
-        void showMessage(@StringRes int resId);
+        void showNormalMessage(String msg);
+        void showNormalMessage(@StringRes int resId);
+
+        void showWarningMessage(String msg);
+        void showWarningMessage(@StringRes int resId);
     }
 }

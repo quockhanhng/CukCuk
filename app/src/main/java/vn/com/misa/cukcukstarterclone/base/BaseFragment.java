@@ -1,15 +1,20 @@
 package vn.com.misa.cukcukstarterclone.base;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import vn.com.misa.cukcukstarterclone.R;
 
 /**
  * @created_by KhanhNQ on 07-Jan-21.
@@ -37,16 +42,72 @@ public abstract class BaseFragment<V extends BaseContract.View, P extends BaseCo
     }
 
     @Override
-    public void showMessage(String msg) {
+    public void showErrorMessage(String msg) {
         if (null != getContext()) {
-            Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+            Toast toast = Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.TOP | Gravity.FILL_HORIZONTAL, 0, 0);
+            View toastView = toast.getView();
+            toastView.setBackgroundResource(R.drawable.bg_default_toast_error);
+            TextView v = toastView.findViewById(android.R.id.message);
+            v.setTextColor(Color.WHITE);
+            toast.show();
         }
     }
 
     @Override
-    public void showMessage(int resId) {
+    public void showErrorMessage(int resId) {
         if (null != getContext()) {
-            Toast.makeText(getContext(), getResources().getString(resId), Toast.LENGTH_SHORT).show();
+            Toast toast = Toast.makeText(getContext(), getResources().getString(resId), Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.TOP | Gravity.FILL_HORIZONTAL, 0, 0);
+            View toastView = toast.getView();
+            toastView.setBackgroundResource(R.drawable.bg_default_toast_error);
+            TextView v = toastView.findViewById(android.R.id.message);
+            v.setTextColor(Color.WHITE);
+            toast.show();
         }
+    }
+
+    @Override
+    public void showNormalMessage(String msg) {
+        Toast toast = Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.TOP | Gravity.FILL_HORIZONTAL, 0, 0);
+        View toastView = toast.getView();
+        toastView.setBackgroundResource(R.drawable.bg_default_toast);
+        TextView v = toastView.findViewById(android.R.id.message);
+        v.setTextColor(Color.WHITE);
+        toast.show();
+    }
+
+    @Override
+    public void showNormalMessage(int resId) {
+        Toast toast = Toast.makeText(getContext(), getResources().getString(resId), Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.TOP | Gravity.FILL_HORIZONTAL, 0, 0);
+        View toastView = toast.getView();
+        toastView.setBackgroundResource(R.drawable.bg_default_toast);
+        TextView v = toastView.findViewById(android.R.id.message);
+        v.setTextColor(Color.WHITE);
+        toast.show();
+    }
+
+    @Override
+    public void showWarningMessage(String msg) {
+        Toast toast = Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.TOP | Gravity.FILL_HORIZONTAL, 0, 0);
+        View toastView = toast.getView();
+        toastView.setBackgroundResource(R.drawable.bg_default_toast_warning);
+        TextView v = toastView.findViewById(android.R.id.message);
+        v.setTextColor(Color.WHITE);
+        toast.show();
+    }
+
+    @Override
+    public void showWarningMessage(int resId) {
+        Toast toast = Toast.makeText(getContext(), getResources().getString(resId), Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.TOP | Gravity.FILL_HORIZONTAL, 0, 0);
+        View toastView = toast.getView();
+        toastView.setBackgroundResource(R.drawable.bg_default_toast_warning);
+        TextView v = toastView.findViewById(android.R.id.message);
+        v.setTextColor(Color.WHITE);
+        toast.show();
     }
 }

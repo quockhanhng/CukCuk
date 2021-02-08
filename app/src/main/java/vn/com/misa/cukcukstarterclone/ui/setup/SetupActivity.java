@@ -116,7 +116,7 @@ public class SetupActivity extends AppCompatActivity
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
 
-        SharedPreferenceHelper.setSharedPreferenceBoolean(this, SharedPreferenceHelper.KEY_LOGIN_FIRST_TIME, true);
+        SharedPreferenceHelper.setSharedPreferenceBoolean(this, SharedPreferenceHelper.KEY_INIT_DATABASE, true);
 
         this.finish();
     }

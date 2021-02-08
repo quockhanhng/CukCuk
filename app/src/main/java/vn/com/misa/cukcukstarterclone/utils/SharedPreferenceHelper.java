@@ -10,7 +10,8 @@ import android.content.SharedPreferences;
  * @created_by KhanhNQ on 22-Jan-21
  */
 public class SharedPreferenceHelper {
-    public final static String KEY_LOGIN_FIRST_TIME = "KEY_LOGIN_FIRST_TIME";
+    public final static String KEY_LOGIN = "KEY_LOGIN";
+    public final static String KEY_INIT_DATABASE = "KEY_INIT_DATABASE";
 
     private final static String PREF_FILE = "APP_PREF";
 

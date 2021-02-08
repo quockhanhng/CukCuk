@@ -39,7 +39,7 @@ public class ListOrdersPresenter implements ListOrdersContract.Presenter {
 
             @Override
             public void onFailure(Exception e) {
-                view.showMessage(e.getMessage());
+                view.showErrorMessage(e.getMessage());
             }
         });
     }
@@ -54,7 +54,7 @@ public class ListOrdersPresenter implements ListOrdersContract.Presenter {
 
             @Override
             public void onFailure(Exception e) {
-                view.showMessage(e.getLocalizedMessage());
+                view.showErrorMessage(e.getLocalizedMessage());
             }
         });
     }

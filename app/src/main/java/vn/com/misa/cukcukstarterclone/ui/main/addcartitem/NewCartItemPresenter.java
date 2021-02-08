@@ -48,7 +48,7 @@ public class NewCartItemPresenter implements NewCartItemContract.Presenter {
 
             @Override
             public void onFailure(Exception e) {
-                view.showMessage(e.getLocalizedMessage());
+                view.showErrorMessage(e.getLocalizedMessage());
             }
         });
     }
@@ -67,13 +67,13 @@ public class NewCartItemPresenter implements NewCartItemContract.Presenter {
                 if (isSuccess) {
                     view.onAddNewCartSuccess(cartItem);
                 } else {
-                    view.showMessage(R.string.error_add_new_cart_item);
+                    view.showErrorMessage(R.string.error_add_new_cart_item);
                 }
             }
 
             @Override
             public void onFailure(Exception e) {
-                view.showMessage(e.getLocalizedMessage());
+                view.showErrorMessage(e.getLocalizedMessage());
             }
         });
     }

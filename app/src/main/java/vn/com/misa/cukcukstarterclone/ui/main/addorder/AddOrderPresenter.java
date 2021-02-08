@@ -61,7 +61,7 @@ public class AddOrderPresenter implements AddOrderContract.Presenter {
 
             @Override
             public void onFailure(Exception e) {
-                view.showMessage(e.getLocalizedMessage());
+                view.showErrorMessage(e.getLocalizedMessage());
             }
         });
     }
@@ -87,7 +87,7 @@ public class AddOrderPresenter implements AddOrderContract.Presenter {
 
             @Override
             public void onFailure(Exception e) {
-                view.showMessage(e.getMessage());
+                view.showErrorMessage(e.getMessage());
             }
         });
     }
@@ -114,7 +114,7 @@ public class AddOrderPresenter implements AddOrderContract.Presenter {
 
             @Override
             public void onFailure(Exception e) {
-                view.showMessage(e.getLocalizedMessage());
+                view.showErrorMessage(e.getLocalizedMessage());
             }
         });
     }
@@ -151,7 +151,7 @@ public class AddOrderPresenter implements AddOrderContract.Presenter {
 
             @Override
             public void onFailure(Exception e) {
-                view.showMessage(e.getLocalizedMessage());
+                view.showErrorMessage(e.getLocalizedMessage());
             }
         });
     }
@@ -172,7 +172,7 @@ public class AddOrderPresenter implements AddOrderContract.Presenter {
 
             @Override
             public void onFailure(Exception e) {
-                view.showMessage(e.getLocalizedMessage());
+                view.showErrorMessage(e.getLocalizedMessage());
             }
         });
     }
@@ -195,7 +195,7 @@ public class AddOrderPresenter implements AddOrderContract.Presenter {
 
                 @Override
                 public void onFailure(Exception e) {
-                    view.showMessage(e.getLocalizedMessage());
+                    view.showErrorMessage(e.getLocalizedMessage());
                     if (index == cartItems.size() - 1) view.addCartItemsDone();
                 }
             });

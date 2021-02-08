@@ -1,7 +1,5 @@
 package vn.com.misa.cukcukstarterclone.ui.menu.groupdetails;
 
-import android.content.Context;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +44,7 @@ public class GroupDetailsPresenter implements GroupDetailsContract.Presenter {
 
             @Override
             public void onFailure(Exception e) {
-                view.showMessage(e.getMessage());
+                view.showErrorMessage(e.getMessage());
             }
         });
     }
@@ -61,7 +59,7 @@ public class GroupDetailsPresenter implements GroupDetailsContract.Presenter {
 
             @Override
             public void onFailure(Exception e) {
-                view.showMessage(e.getMessage());
+                view.showErrorMessage(e.getMessage());
             }
         });
     }

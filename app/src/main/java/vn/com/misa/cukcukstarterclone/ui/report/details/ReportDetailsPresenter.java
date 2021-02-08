@@ -146,7 +146,7 @@ public class ReportDetailsPresenter implements ReportDetailsContract.Presenter {
 
             @Override
             public void onFailure(Exception e) {
-                view.showMessage(e.getMessage());
+                view.showErrorMessage(e.getMessage());
             }
         });
     }
@@ -171,7 +171,7 @@ public class ReportDetailsPresenter implements ReportDetailsContract.Presenter {
 
             @Override
             public void onFailure(Exception e) {
-                view.showMessage(e.getMessage());
+                view.showErrorMessage(e.getMessage());
             }
         });
     }

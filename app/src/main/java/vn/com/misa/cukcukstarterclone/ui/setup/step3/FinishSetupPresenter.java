@@ -38,14 +38,14 @@ public class FinishSetupPresenter implements FinishSetupContract.Presenter {
                     if (isSuccess) {
                         Log.d("TAG", "onSuccess: " + element.toString());
                     } else {
-                        view.showMessage(R.string.save_data_failed);
+                        view.showErrorMessage(R.string.save_data_failed);
                     }
                     if (element.getId().equals(lastItemId)) view.onSaveGroupsSuccess();
                 }
 
                 @Override
                 public void onFailure(Exception e) {
-                    view.showMessage(e.getMessage());
+                    view.showErrorMessage(e.getMessage());
                 }
             });
         }
@@ -61,14 +61,14 @@ public class FinishSetupPresenter implements FinishSetupContract.Presenter {
                     if (isSuccess) {
                         Log.d("TAG", "onSuccess: " + element.toString());
                     } else {
-                        view.showMessage(R.string.save_data_failed);
+                        view.showErrorMessage(R.string.save_data_failed);
                     }
                     if (element.getId().equals(lastItemId)) view.onSaveItemsSuccess();
                 }
 
                 @Override
                 public void onFailure(Exception e) {
-                    view.showMessage(e.getMessage());
+                    view.showErrorMessage(e.getMessage());
                 }
             });
         }
