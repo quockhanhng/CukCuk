@@ -146,4 +146,10 @@
         <item name="android:focusable">true</item>
         <item name="android:background">?attr/selectableItemBackground</item>
     </style>
+
+    <style name="TextViewChanges" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textColor">@color/green</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">16sp</item>
+    </style>
 </resources>

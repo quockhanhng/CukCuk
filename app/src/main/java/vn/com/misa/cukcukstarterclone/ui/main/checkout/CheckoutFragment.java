@@ -13,11 +13,14 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.button.MaterialButtonToggleGroup;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import vn.com.misa.cukcukstarterclone.R;
 import vn.com.misa.cukcukstarterclone.base.BaseFragment;
@@ -46,8 +49,18 @@ public class CheckoutFragment extends BaseFragment<CheckoutContract.View, Checko
 
     private TextView tvTotalMoney;
     private EditText edtCustomPay;
+    private ConstraintLayout clChanges;
     private LinearLayout llChanges;
     private TextView tvChanges;
+    private TextView tvFirstChangesOption;
+    private TextView tvSecondChangesOption;
+    private TextView tvThirdChangesOption;
+    private TextView tvFourthChangesOption;
+    private TextView tvFifthChangesOption;
+    private TextView tvSixthChangesOption;
+
+    private TextView textViewPreviousSuggestedMoney;
+    private TextView textViewCurrentSuggestedMoney;
 
     private float totalMoney = 0;
     private Order.PaymentType paymentType = PaymentType.CASH;
@@ -91,9 +104,46 @@ public class CheckoutFragment extends BaseFragment<CheckoutContract.View, Checko
             MaterialButtonToggleGroup toggleGroupPayment = view.findViewById(R.id.toggleGroupPayment);
             tvTotalMoney = view.findViewById(R.id.tvTotalMoney);
             edtCustomPay = view.findViewById(R.id.edtCustomerPay);
+            clChanges = view.findViewById(R.id.clChanges);
+            tvFirstChangesOption = view.findViewById(R.id.tvFirstChangesOption);
+            tvSecondChangesOption = view.findViewById(R.id.tvSecondChangesOption);
+            tvThirdChangesOption = view.findViewById(R.id.tvThirdChangesOption);
+            tvFourthChangesOption = view.findViewById(R.id.tvFourthChangesOption);
+            tvFifthChangesOption = view.findViewById(R.id.tvFifthChangesOption);
+            tvSixthChangesOption = view.findViewById(R.id.tvSixthChangesOption);
             llChanges = view.findViewById(R.id.llChanges);
             tvChanges = view.findViewById(R.id.tvChanges);
-            TextView btnFinish = view.findViewById(R.id.btnFinish);
+
+            tvFirstChangesOption.setOnClickListener(v -> {
+                textViewPreviousSuggestedMoney = textViewCurrentSuggestedMoney;
+                textViewCurrentSuggestedMoney = tvFirstChangesOption;
+                updateCustomPay(tvFirstChangesOption.getText().toString());
+            });
+            tvSecondChangesOption.setOnClickListener(v -> {
+                textViewPreviousSuggestedMoney = textViewCurrentSuggestedMoney;
+                textViewCurrentSuggestedMoney = tvSecondChangesOption;
+                updateCustomPay(tvSecondChangesOption.getText().toString());
+            });
+            tvThirdChangesOption.setOnClickListener(v -> {
+                textViewPreviousSuggestedMoney = textViewCurrentSuggestedMoney;
+                textViewCurrentSuggestedMoney = tvThirdChangesOption;
+                updateCustomPay(tvThirdChangesOption.getText().toString());
+            });
+            tvFourthChangesOption.setOnClickListener(v -> {
+                textViewPreviousSuggestedMoney = textViewCurrentSuggestedMoney;
+                textViewCurrentSuggestedMoney = tvFourthChangesOption;
+                updateCustomPay(tvFourthChangesOption.getText().toString());
+            });
+            tvFifthChangesOption.setOnClickListener(v -> {
+                textViewPreviousSuggestedMoney = textViewCurrentSuggestedMoney;
+                textViewCurrentSuggestedMoney = tvFifthChangesOption;
+                updateCustomPay(tvFifthChangesOption.getText().toString());
+            });
+            tvSixthChangesOption.setOnClickListener(v -> {
+                textViewPreviousSuggestedMoney = textViewCurrentSuggestedMoney;
+                textViewCurrentSuggestedMoney = tvSixthChangesOption;
+                updateCustomPay(tvSixthChangesOption.getText().toString());
+            });
 
             toggleGroupPayment.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
                 if (isChecked) {
@@ -101,11 +151,17 @@ public class CheckoutFragment extends BaseFragment<CheckoutContract.View, Checko
                     switch (checkedId) {
                         case R.id.btnCash:
                             paymentType = PaymentType.CASH;
+                            clChanges.setVisibility(View.VISIBLE);
                             llChanges.setVisibility(View.VISIBLE);
                             edtCustomPay.setEnabled(true);
                             break;
                         case R.id.btnAtmCard:
                             paymentType = PaymentType.CARD;
+                            if (textViewCurrentSuggestedMoney != null) {
+                                textViewCurrentSuggestedMoney.setBackgroundResource(R.drawable.bg_money_changes_text_view);
+                                textViewCurrentSuggestedMoney.setTextColor(getResources().getColor(R.color.green));
+                            }
+                            clChanges.setVisibility(View.GONE);
                             llChanges.setVisibility(View.GONE);
                             edtCustomPay.setEnabled(false);
                             break;
@@ -114,7 +170,6 @@ public class CheckoutFragment extends BaseFragment<CheckoutContract.View, Checko
             });
 
             edtCustomPay.setOnClickListener(v -> edtCustomPay.selectAll());
-
             edtCustomPay.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -127,10 +182,7 @@ public class CheckoutFragment extends BaseFragment<CheckoutContract.View, Checko
                         edtCustomPay.requestFocus();
                         edtCustomPay.selectAll();
                     } else {
-                        float pay = Float.parseFloat(edtCustomPay.getText().toString());
-                        float changes = pay - totalMoney;
-                        changes = Math.max(changes, 0);
-                        tvChanges.setText(decimalFormat.format(changes));
+                        updateChangesMoney();
                     }
                 }
 
@@ -139,12 +191,34 @@ public class CheckoutFragment extends BaseFragment<CheckoutContract.View, Checko
                 }
             });
 
+            TextView btnFinish = view.findViewById(R.id.btnFinish);
             btnFinish.setOnClickListener(v -> validate());
         } catch (Exception e) {
             Utils.handleException(e);
         }
 
         initPresenter();
+    }
+
+    private void updateCustomPay(String textMoney) {
+        edtCustomPay.setText(textMoney);
+        if (textViewPreviousSuggestedMoney != null) {
+            textViewPreviousSuggestedMoney.setBackgroundResource(R.drawable.bg_money_changes_text_view);
+            textViewPreviousSuggestedMoney.setTextColor(getResources().getColor(R.color.green));
+        }
+        if (textViewCurrentSuggestedMoney != null) {
+            textViewCurrentSuggestedMoney.setBackgroundResource(R.drawable.bg_money_changes_selected_text_view);
+            textViewCurrentSuggestedMoney.setTextColor(getResources().getColor(R.color.white));
+        }
+        updateChangesMoney();
+    }
+
+    private void updateChangesMoney() {
+        String textMoney = edtCustomPay.getText().toString().replace(".", "");
+        float pay = Float.parseFloat(textMoney);
+        float changes = pay - totalMoney;
+        changes = Math.max(changes, 0);
+        tvChanges.setText(decimalFormat.format(changes));
     }
 
     private void popFragment() {
@@ -213,8 +287,27 @@ public class CheckoutFragment extends BaseFragment<CheckoutContract.View, Checko
             totalMoney = cart.getTotalAmount();
             tvTotalMoney.setText(decimalFormat.format(totalMoney));
             edtCustomPay.setText(decimalFormat.format(totalMoney));
+
+            generateSuggestChanges();
         } catch (Exception e) {
             Utils.handleException(e);
+        }
+    }
+
+    private void generateSuggestChanges() {
+        double[] bills = {5000, 10000, 20000, 50000, 100000, 200000, 500000};
+        TextView[] textViewSuggestPrice = {tvFirstChangesOption, tvSecondChangesOption, tvThirdChangesOption, tvFourthChangesOption, tvFifthChangesOption, tvSixthChangesOption};
+        List<Double> suggestion = new ArrayList<>();
+        for (double bill : bills) {
+            double suggestPrice = Math.ceil(totalMoney / bill) * bill;
+            if (!suggestion.contains(suggestPrice)) suggestion.add(suggestPrice);
+        }
+
+        for (int i = 0; i < textViewSuggestPrice.length; i++) {
+            if (null != suggestion.get(i)) {
+                textViewSuggestPrice[i].setVisibility(View.VISIBLE);
+                textViewSuggestPrice[i].setText(decimalFormat.format(suggestion.get(i)));
+            }
         }
     }
 

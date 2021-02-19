@@ -96,6 +96,14 @@
     <string name="password">Mật khẩu</string>
     <string name="password_confirm">Nhập lại mật khẩu</string>
     <string name="password_confirm_wrong">Mật khẩu nhập lại không đúng</string>
+    <string name="app_package_name">vn.com.misa.cukcukstartermobile</string>
+    <string name="string_share_app">Chào bạn. Bạn có thể download phiên bản Android của ứng dụng CUKCUK Starter - Bán hàng tại địa chỉ: https://play.google.com/store/apps/details?id=vn.com.misa.cukcukstartermobile\nXem thêm thông tin chi tiết tại website: www.cukcuk.vn</string>
+    <string name="app_url">https://www.cukcuk.vn</string>
+    <string name="play_store_url">https://play.google.com/store/apps/details?id=</string>
+    <string name="email_support">sonca@support.misa.com.vn</string>
+    <string name="email_cshk">htkh@software.misa.com.vn</string>
+    <string name="string_mail_title">[CUKCUK] Gửi thông báo lỗi cho MISA</string>
+    <string name="string_email_body">Gửi thông báo lỗi\n\n\n---\n</string>
 
     <string-array name="unit_spinner">
         <item>"Suất"</item>

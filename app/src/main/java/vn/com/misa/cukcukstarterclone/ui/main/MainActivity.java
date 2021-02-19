@@ -5,9 +5,9 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.PersistableBundle;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -133,6 +133,45 @@ public class MainActivity extends AppCompatActivity
             tvReport.setOnClickListener(v -> {
                 drawerLayout.closeDrawers();
                 startActivity(new Intent(this, ReportActivity.class));
+            });
+            tvSettings.setOnClickListener(v -> {
+                
+            });
+            tvSecurity.setOnClickListener(v -> {
+                drawerLayout.closeDrawers();
+                String url = getString(R.string.app_url);
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+            });
+            tvShare.setOnClickListener(v -> {
+                drawerLayout.closeDrawers();
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_TEXT, getResources().getString(R.string.string_share_app));
+                shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Title");
+                startActivity(Intent.createChooser(shareIntent, "Share..."));
+            });
+            tvRating.setOnClickListener(v -> {
+                drawerLayout.closeDrawers();
+                final String appPackageName = getString(R.string.app_package_name);
+                try {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+                } catch (android.content.ActivityNotFoundException e) {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.play_store_url) + appPackageName)));
+                }
+            });
+            tvReportBug.setOnClickListener(v -> {
+                drawerLayout.closeDrawers();
+                String[] toEmails = {getString(R.string.email_support)};
+                String[] ccEmails = {getString(R.string.email_cshk)};
+                Intent intent = new Intent(Intent.ACTION_SENDTO);
+                intent.setData(Uri.parse("mailto:"));
+                intent.putExtra(Intent.EXTRA_EMAIL, toEmails);
+                intent.putExtra(Intent.EXTRA_CC, ccEmails);
+                intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.string_mail_title));
+                intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.string_email_body));
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(intent);
+                }
             });
             tvSignOut.setOnClickListener(v -> {
                 SharedPreferenceHelper.setSharedPreferenceBoolean(this, SharedPreferenceHelper.KEY_LOGIN, false);
